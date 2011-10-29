@@ -78,6 +78,24 @@
 
 <a name="a-basic-http-server"></a>
 ### 一个基础的HTTP服务器  
+当我准备开始写我的第一个“真正的”Node.js应用的时候，我不但不知道怎么写Node.js代码，也不知道怎么组织这些代码。 
+我应该把所有东西都放进一个文件里吗？网上有很多教程都会教你把所有的逻辑都放进一个用Node.js写的基础HTTP服务器里。但是如果我想加入更多的内容，同时还想保持我的代码的可读性呢？
+实际上，只要把不同功能的代码放入不同的模块中，保持代码分离还是相当简单的。 
+这种方法允许你拥有一个干净的主文件（main file），你可以用Node.js执行它；同时你可以拥有干净的模块，它们可以被主文件和其他的模块调用。 
+那么，现在我们来创建一个用来启动我们的应用的主文件，和一个保存着我们的HTTP服务器代码的模块。 
+在我的印象里，把主文件叫做index.js或多或少是个标准格式。把服务器模块放进叫server.js的文件里则很好理解。 
+让我们从服务器模块开始。在你的项目文件夹的根目录下创建一个叫server.js的文件，并写入以下代码：
+    var http = require("http");
+    
+    http.createServer(function(request, response) {
+    response.writeHead(200, {"Content-Type": "text/plain"});
+      response.write("Hello World");
+      response.end();
+    }).listen(8888); 
+搞定！你刚刚完成了一个可以工作的HTTP服务器。为了证明这一点，我们来运行并且测试这段代码。首先，用Node.js执行你的脚本：
+·node server.js·
+接下来，打开浏览器访问http://localhost:8888/ ，你会看到一个写着“Hello World”的网页。
+这很有趣，不是吗？让我们先来谈谈HTTP服务器的问题，把如何组织项目的事情先放一边吧，你觉得如何？我保证之后我们会解决那个问题的。
 
 <a name="analyzing-our-http-server"></a>
 ### 分析HTTP服务器  
