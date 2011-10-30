@@ -3,7 +3,7 @@ Just translate something worth sharing.
 #Current work:
 
 ##On NodeJS
-NodeJSÈëÃÅ(The node beginner Book)ÆäÖĞ7¸öĞ¡½ÚºÍÒ»Ğ©ÖÜ±ß¹¤×÷
+NodeJSå…¥é—¨(The node beginner Book)å…¶ä¸­7ä¸ªå°èŠ‚å’Œä¸€äº›å‘¨è¾¹å·¥ä½œ
 Nice to work with Goddy & Gary!
 Goddy's part:
 https://github.com/goddyZhao/Translation/blob/develop/NodeJS/Node%E5%85%A5%E9%97%A8%EF%BC%88The%20Node%20Beginner%20Book%EF%BC%89.md
