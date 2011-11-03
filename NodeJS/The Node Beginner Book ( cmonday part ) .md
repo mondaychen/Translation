@@ -103,7 +103,7 @@
 
     node server.js
 
-接下来，打开浏览器访问http://localhost:8888/ ，你会看到一个写着“Hello World”的网页。  
+接下来，打开浏览器访问http://localhost:8888/ ，你会看到一个写着“Hello World”的网页。 
 
 这很有趣，不是吗？让我们先来谈谈HTTP服务器的问题，把如何组织项目的事情先放一边吧，你觉得如何？我保证之后我们会解决那个问题的。  
 
@@ -118,13 +118,59 @@
 
 咱们暂时先不管*http.creatServer*的括号里的那个函数定义。  
 
-We could have written the code that starts our server and makes it listen at port 8888 like this:  
+我们本来可以用这样的代码来启动服务器并侦听8888端口：
+
+    var http = require("http");    
+    
+    var server = http.createServer();   
+    server.listen(8888);  
+
+这段代码只会启动一个侦听8888端口的服务器，它不做任何别的事情，甚至连请求都不会应答。  
+
+最有趣（而且，如果你之前习惯使用一个更加保守的语言，比如PHP，它还很奇怪）的部分是*createSever()*的第一个参数，一个函数定义。  
+
+实际上，这个函数定义是*createServer()*的第一个也是唯一一个参数。因为在JavaScript中，函数和其他变量一样都是可以被传递的。  
 
 <a name="passing-functions-around"></a>
 ### 进行函数传递  
 
+举例来说，你可以这样做：
+
+    function say(word) {
+       console.log(word); 
+    }
+    
+      function execute(someFunction, value) { 
+      someFunction(value);
+     }
+    execute(say, "Hello");
+
+请仔细阅读这段代码！在这里，我们把*say*函数作为*execute*函数的第一个变量进行了传递。这里返回的不是*say*的值，而是*say*本身！
+
+这样一来，*say*就变成了*execute*中的本地变量*someFunction*，execute可以通过调用*someFunction()*（带括号的形式）来使用*say*函数。
+
+当然，因为*say*有一个变量，*execute*在调用*someFunction*时可以传递这样一个变量。
+
+我们可以，就像刚才那样，用它的名字把一个函数作为变量传递。但是我们不一定要绕这个“先定义，再传递”的圈子，我们可以直接在另一个函数的括号中定义和传递这个函数：
+
+    function execute(someFunction, value) { 
+      someFunction(value); 
+    }
+    
+    execute(function(word){ console.log(word) }, "Hello");
+
+我们在*execute*接受第一个参数的地方直接定义了我们准备传递给*execute*的函数。
+
+用这种方式，我们甚至不用给这个函数起名字，这也是为什么它被叫做*匿名函数*。
+
+这是我们和我所认为的“进阶”JavaScript的第一次亲密接触，不过我们还是得循序渐进。现在，我们先接受这一点：在JavaScript中，一个函数可以作为另一个函数接收一个参数。我们可以先定义一个函数，然后传递，也可以在传递参数的地方直接定义函数。
+
 <a name="how-function-passing-makes-our-http-server-work"></a>
 ### 函数传递是如何让HTTP服务器工作的  
+
+带着这些知识，我们再来看看我们简约而不简单的HTTP服务器：
+
+    
 
 <a name="event-driven-callbacks"></a>
 ### 基于事件驱动的回调  
